@@ -11,9 +11,9 @@ public class Rotas {
     private int id;
     private String nome;
     private String periodo;
-    private int qntdparadas;
-    private int tempo;
-    private int enderecos;
+    private int quantidade_paradas;
+    private String tempo;
+    private int endereco_id;
 
     public int getId() {
         return id;
@@ -35,28 +35,28 @@ public class Rotas {
         this.periodo = periodo;
     }
 
-    public int getQntdparadas() {
-        return qntdparadas;
+    public int setQuantidade_paradas() {
+        return quantidade_paradas;
     }
 
-    public void setQntdparadas(int qntdparadas) {
-        this.qntdparadas = qntdparadas;
+    public void setQuantidade_paradas(int quantidade_paradas) {
+        this.quantidade_paradas = quantidade_paradas;
     }
 
-    public int getTempo() {
+    public String getTempo() {
         return tempo;
     }
 
-    public void setTempo(int tempo) {
+    public void setTempo(String tempo) {
         this.tempo = tempo;
     }
 
-    public int getEnderecos() {
-        return enderecos;
+    public int getEndereco_id() {
+        return endereco_id;
     }
 
-    public void setEnderecos(int enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco_id(int endereco_id) {
+        this.endereco_id = endereco_id;
     }
 
     @Override
@@ -65,21 +65,21 @@ public class Rotas {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", periodo='" + periodo + '\'' +
-                ", qntdparadas=" + qntdparadas +
+                ", quantidade de paradas=" + quantidade_paradas +
                 ", tempo=" + tempo +
-                ", enderecos=" + enderecos +
+                ", enderecos id=" + endereco_id +
                 '}';
     }
 
     public Rotas() {
     }
 
-    public Rotas(int id, String nome, String periodo, int qntdparadas, int tempo, int enderecos) {
+    public Rotas(int id, String nome, String periodo, int quantidade_paradas, String tempo, int enderecos_id) {
         this.id = id;
         this.nome = nome;
         this.periodo = periodo;
-        this.qntdparadas = qntdparadas;
+        this.quantidade_paradas = quantidade_paradas;
         this.tempo = tempo;
-        this.enderecos = enderecos;
+        this.endereco_id = enderecos_id;
     }
 }

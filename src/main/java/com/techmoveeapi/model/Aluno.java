@@ -5,21 +5,22 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 
 @Entity
-@Table(name = "aluno")
+@Table(name = "alunos")
 public class Aluno {
     private String nome;
     private char sexo;
     private int idade;
     private String escola;
     private String turno;
-    private boolean pcd;
-    private  String foto;
+    private String pcd;
+    private String foto;
+    private String responsavel_cpf;
 
     @Id
     private String cpf;
 
     public Aluno() {}
-    public Aluno(String nome, char sexo, int idade, String escola, String turno, boolean pcd,  String foto, String cpf) {
+    public Aluno(String nome, char sexo, int idade, String escola, String turno, String pcd,  String foto, String cpf, String responsavel_cpf) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
@@ -28,6 +29,15 @@ public class Aluno {
         this.pcd = pcd;
         this.foto = foto;
         this.cpf = cpf;
+        this.responsavel_cpf = responsavel_cpf;
+    }
+
+
+    public String getResponsavel_cpf() {
+        return responsavel_cpf;
+    }
+    public void setResponsavel_cpf(String responsavel_cpf) {
+        this.responsavel_cpf = responsavel_cpf;
     }
 
     public String getNome() {
@@ -65,10 +75,10 @@ public class Aluno {
         this.turno = turno;
     }
 
-    public boolean isPcd() {
+    public String isPcd() {
         return pcd;
     }
-    public void setPcd(boolean pcd) {
+    public void setPcd(String pcd) {
         this.pcd = pcd;
     }
 
@@ -83,7 +93,6 @@ public class Aluno {
         return cpf;
     }
     public void setCpf(String cpf){
-
         this.cpf = cpf;
     }
 
@@ -98,7 +107,8 @@ public class Aluno {
                 "turno: "+turno+
                 "pcd: "+pcd+
                 "foto: "+foto+
-                "cpf: "+cpf;
+                "cpf: "+cpf+
+                "Cpf do responsável: "+responsavel_cpf;
     }
 
 
