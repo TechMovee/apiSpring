@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/aluno")
 @Validated
 public class AlunoController {
-    //testando PR
+
 }
