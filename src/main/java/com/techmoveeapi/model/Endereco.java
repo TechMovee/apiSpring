@@ -13,17 +13,17 @@ public class Endereco {
     private String cep;
     private String bairro;
     private String rua;
-    private int numCasa;
+    private String numero;
 
     public Endereco(){
 
     }
-    public Endereco(int id, String cep, String bairro, String rua, int numCasa) {
+    public Endereco(int id, String cep, String bairro, String rua, String numero) {
         this.id = id;
         this.cep = cep;
         this.bairro = bairro;
         this.rua = rua;
-        this.numCasa = numCasa;
+        this.numero = numero;
     }
 
     public int getId() {
@@ -53,11 +53,11 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public int getNumCasa() {
-        return numCasa;
+    public String getNumCasa() {
+        return numero;
     }
-    public void setNumCasa(int numCasa) {
-        this.numCasa = numCasa;
+    public void setNumCasa(String numCasa) {
+        this.numero = numCasa;
     }
 
     @Override
@@ -67,6 +67,6 @@ public class Endereco {
                 "Cep: "+cep+
                 "Bairro: "+bairro+
                 "Rua: "+rua+
-                "NumCasa: "+numCasa;
+                "Número da casa: "+numero;
     }
 }

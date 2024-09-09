@@ -4,36 +4,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "responsáveis")
+@Table(name = "responsaveis")
 public class Responsaveis {
-    private int dt_nascimento;
-    private int telefone;
+    private LocalDate dt_nascimento;
     private String sexo;
     @Id
-    private int cpf;
+    private String cpf;
     private String foto;
     private String senha;
     private String nome;
-    private int enderecos;
+    private int endereco_id;
 
-    public int getDt_nascimento() {
+    public LocalDate getDt_nascimento() {
         return dt_nascimento;
-    }
-
-    public int getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(int telefone) {
-        this.telefone = telefone;
     }
 
     public String getSexo() {
         return sexo;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
@@ -61,12 +54,12 @@ public class Responsaveis {
         this.nome = nome;
     }
 
-    public int getEnderecos() {
-        return enderecos;
+    public int getEndereco_id() {
+        return endereco_id;
     }
 
-    public void setEnderecos(int enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco_id(int endereco_id) {
+        this.endereco_id = endereco_id;
     }
 
     public Responsaveis() {
@@ -75,25 +68,23 @@ public class Responsaveis {
     @Override
     public String toString() {
         return "Responsaveis{" +
-                "dt_nascimento=" + dt_nascimento +
-                ", telefone=" + telefone +
-                ", sexo='" + sexo + '\'' +
+                "dt_nascimento: " + dt_nascimento +
+                ", sexo: " + sexo + '\'' +
                 ", cpf=" + cpf +
-                ", foto='" + foto + '\'' +
-                ", senha='" + senha + '\'' +
-                ", nome='" + nome + '\'' +
-                ", enderecos=" + enderecos +
+                ", foto: " + foto + '\'' +
+                ", senha: " + senha + '\'' +
+                ", nome: " + nome + '\'' +
+                ", enderecos id: " + endereco_id +
                 '}';
     }
 
-    public Responsaveis(int dt_nascimento, int telefone, String sexo, int cpf, String foto, String senha, String nome, int enderecos) {
+    public Responsaveis(LocalDate dt_nascimento, String sexo, String cpf, String foto, String senha, String nome, int endereco_id) {
         this.dt_nascimento = dt_nascimento;
-        this.telefone = telefone;
         this.sexo = sexo;
         this.cpf = cpf;
         this.foto = foto;
         this.senha = senha;
         this.nome = nome;
-        this.enderecos = enderecos;
+        this.endereco_id = endereco_id;
     }
 }

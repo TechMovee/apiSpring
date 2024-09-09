@@ -7,25 +7,24 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Transportadores")
+@Table(name = "transportadores")
 public class Transportadores {
-    private int cep;
+    private String cep;
     private String email;
     private String senha;
-    private int telefone;
     private LocalDate dt_nascimento;
     private String foto;
     private String cpf;
     private String nome;
-    private String sexo;
+    private char sexo;
     @Id
-    private Long cnh;
+    private String cnh;
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -43,14 +42,6 @@ public class Transportadores {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public int getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(int telefone) {
-        this.telefone = telefone;
     }
 
     public LocalDate getDt_nascimento() {
@@ -85,23 +76,22 @@ public class Transportadores {
         this.nome = nome;
     }
 
-    public String getSexo() {
+    public char getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(char sexo) {
         this.sexo = sexo;
     }
 
-    public Long getCnh() {
+    public String getCnh() {
         return cnh;
     }
 
-    public Transportadores(int cep, String email, String senha, int telefone, LocalDate dt_nascimento, String foto, String cpf, String nome, String sexo, Long cnh) {
+    public Transportadores(String cep, String email, String senha, LocalDate dt_nascimento, String foto, String cpf, String nome, char sexo, String cnh) {
         this.cep = cep;
         this.email = email;
         this.senha = senha;
-        this.telefone = telefone;
         this.dt_nascimento = dt_nascimento;
         this.foto = foto;
         this.cpf = cpf;
@@ -119,7 +109,6 @@ public class Transportadores {
                 "cep=" + cep +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
-                ", telefone=" + telefone +
                 ", dt_nascimento=" + dt_nascimento +
                 ", foto='" + foto + '\'' +
                 ", cpf='" + cpf + '\'' +
