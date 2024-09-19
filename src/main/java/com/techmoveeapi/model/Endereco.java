@@ -3,7 +3,15 @@ package com.techmoveeapi.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 @Table(name = "enderecos")
 public class Endereco {
@@ -24,49 +32,5 @@ public class Endereco {
         this.bairro = bairro;
         this.rua = rua;
         this.numero = numero;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getBairro(
-
-    ) {
-        return bairro;
-    }
-    public void setBairro(String bairro){
-        this.bairro = bairro;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public String getNumCasa() {
-        return numero;
-    }
-    public void setNumCasa(String numCasa) {
-        this.numero = numCasa;
-    }
-
-    @Override
-    public String toString(){
-        return "Endereco{" +
-                "Id: "+id+
-                "Cep: "+cep+
-                "Bairro: "+bairro+
-                "Rua: "+rua+
-                "Número da casa: "+numero;
     }
 }
