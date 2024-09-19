@@ -55,9 +55,9 @@ public class AlunoController {
     }
 
     @GetMapping("/buscarPorCpf/{cpf}")
-    @Operation(summary = "Buscar um novo aluno pelo nome", description = "Busca o aluno pelo nome e mostra seus dados ")
+    @Operation(summary = "Buscar um novo aluno pelo nome", description = "Busca o aluno pelo cpf e mostra seus dados ")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Todos os aluno selecionados",
+            @ApiResponse(responseCode = "200", description = "Aluno selecionado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class))),
             @ApiResponse(responseCode = "404", description = "Requisição inválida",
@@ -67,7 +67,7 @@ public class AlunoController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class)))
     })
-    public ResponseEntity<?> buscarPorCpf(@Parameter(description = "Nome do aluno") @RequestParam String cpf){
+    public ResponseEntity<?> buscarPorCpf(@Parameter(description = "Cpf do aluno") @RequestParam String cpf){
         Aluno aluno = alunoService.buscarAlunoPorCpf(cpf);
         if (aluno != null) {
             return ResponseEntity.ok(aluno);
