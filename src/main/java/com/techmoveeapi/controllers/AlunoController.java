@@ -39,19 +39,41 @@ public class AlunoController {
     }
 
     @GetMapping("/selecionar")
-    @Operation(summary = "Selecionar todos os produtos",
-            description = "Selecionar todos os produtos")
+    @Operation(summary = "Selecionar todos os aluno",
+            description = "Selecionar todos os aluno")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Todos os produtos selecionados",
+            @ApiResponse(responseCode = "200", description = "Todos os aluno selecionados",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class))),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class)))
     })
-    public ResponseEntity<List<Aluno>> listarProdutos(){
-        List<Aluno> listaProdutos = alunoService.buscarTodosAlunos();
-        return ResponseEntity.ok(listaProdutos);
+    public ResponseEntity<List<Aluno>> listarAlunos(){
+        List<Aluno> listaAlunos = alunoService.buscarTodosAlunos();
+        return ResponseEntity.ok(listaAlunos);
+    }
+
+    @GetMapping("/buscarPorCpf/{cpf}")
+    @Operation(summary = "Buscar um novo aluno pelo nome", description = "Busca o aluno pelo nome e mostra seus dados ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Todos os aluno selecionados",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "404", description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class)))
+    })
+    public ResponseEntity<?> buscarPorCpf(@Parameter(description = "Nome do aluno") @RequestParam String cpf){
+        Aluno aluno = alunoService.buscarAlunoPorCpf(cpf);
+        if (aluno != null) {
+            return ResponseEntity.ok(aluno);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+        }
     }
 
     @PostMapping("/inserirAluno")
