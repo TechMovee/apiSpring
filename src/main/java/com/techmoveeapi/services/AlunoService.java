@@ -2,10 +2,13 @@ package com.techmoveeapi.services;
 
 import com.techmoveeapi.model.Aluno;
 import com.techmoveeapi.repository.AlunoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+
+@Service
 public class AlunoService {
 
     private final AlunoRepository alunoRepository;
