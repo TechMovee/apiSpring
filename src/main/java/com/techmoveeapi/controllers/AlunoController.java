@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
@@ -148,6 +149,69 @@ public class AlunoController {
     }
 
 
+    @PatchMapping("/atualizarParcial/{cpf}")
+    @Operation(summary = "Atualizar parcialmente as informações de um aluno", description = "Atualiza uma parte das informações do aluno")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aluno atualizado com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class)))
+    })
+    public  ResponseEntity<?> atualizarProdutoParcial(@Parameter(description = "Cpf do aluno") @PathVariable String cpf, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"nome\": \"NOME\","+"\"sexo\": \"SEXO\","+"\"idade\": \"IDADE\","+"\"escola\": \"ESCOLA\","+"\"turno\": \"TURNO\","+"\"pcd\": \"PCD\","+"\"foto\": \"FOTO\","+"\"cpf\": \"CPF\","+"\"responsavel_cpf\": \"RESPONSAVEL_CPF\"}")) ) @RequestBody Map<String, Object> updates) {
+        try{
+            Aluno aluno = alunoService.buscarAlunoPorCpf(cpf);
+            if (updates.containsKey("nome")) {
+                aluno.setNome((String) updates.get("nome"));
+            }
+            if (updates.containsKey("sexo")){
+                aluno.setSexo((Character) updates.get("sexo"));
+            }
+            if (updates.containsKey("idade")){
+                aluno.setIdade((Integer) updates.get("idade"));
+            }
+            if (updates.containsKey("escola")){
+                aluno.setEscola((String) updates.get("escola"));
+            }
+            if (updates.containsKey("turno")){
+                aluno.setTurno((String) updates.get("turno"));
+            }
+            if (updates.containsKey("pcd")){
+                aluno.setPcd((String) updates.get("pcd"));
+            }
+            if (updates.containsKey("foto")){
+                aluno.setFoto((String) updates.get("foto"));
+            }
+            if (updates.containsKey("cpf")){
+                aluno.setCpf((String) updates.get("cpf"));
+            }
+            if (updates.containsKey("responsavel_cpf")){
+                aluno.setResponsavel_cpf((String) updates.get("responsavel_cpf"));
+            }
+
+
+
+
+            //validar
+            DataBinder binder = new DataBinder(aluno);
+            binder.setValidator(validador);
+            binder.validate();
+            BindingResult result = binder.getBindingResult();
+            if (result.hasErrors()){
+                Map erros = handlerValidator(result);
+                return ResponseEntity.badRequest().body(erros);
+            }
+            Aluno produtosalvo = alunoService.salvarAluno(aluno);
+            return ResponseEntity.ok("Aluno atualizado parcialmente com sucesso");
+        }catch (RuntimeException re){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                    body("Aluno com CPF " + cpf + " não encontrado");
+        }
+    }
 
 
 
