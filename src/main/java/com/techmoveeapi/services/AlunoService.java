@@ -14,15 +14,11 @@ public class AlunoService {
         this.alunoRepository = alunoRepository;
     }
 
-
-
-
-
     public Aluno salvarAluno(Aluno aluno){
         return this.alunoRepository.save(aluno);
     }
 
-    public List<Aluno> buscarAlunoPorCpf(String cpf){
+    public Optional<Aluno> buscarAlunoPorCpf(String cpf){
         return this.alunoRepository.findByCpf(cpf);
     }
 
@@ -31,11 +27,11 @@ public class AlunoService {
     }
 
     public Aluno excluirAluno(String cpf){
-        List<Aluno> alunos = this.alunoRepository.findByCpf(cpf);
+        Optional<Aluno> alunos = this.alunoRepository.findByCpf(cpf);
 
-        if (alunos.isEmpty()){
+        if (alunos.isPresent()){
             this.alunoRepository.deleteByCpf(cpf);
-            return alunos.get(0);
+            return alunos.get();
         }
         return null;
     }

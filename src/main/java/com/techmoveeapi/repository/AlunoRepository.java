@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AlunoRepository extends JpaRepository<Aluno, String> {
-    List<Aluno> findByCpf(String cpf);
+    Optional<Aluno> findByCpf(String cpf);
 
     @Modifying
     @Query("DELETE FROM Aluno e WHERE e.cpf = ?1")
