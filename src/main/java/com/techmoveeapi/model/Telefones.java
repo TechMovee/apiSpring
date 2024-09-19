@@ -3,7 +3,15 @@ package com.techmoveeapi.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 @Table(name = "telefones")
 public class Telefones {
@@ -11,17 +19,6 @@ public class Telefones {
     private int id;
     private String numero;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
 
     public Telefones() {
     }
