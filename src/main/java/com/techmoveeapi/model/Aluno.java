@@ -75,7 +75,7 @@ public class Aluno {
         this.turno = turno;
     }
 
-    public String isPcd() {
+    public String getPcd() {
         return pcd;
     }
     public void setPcd(String pcd) {

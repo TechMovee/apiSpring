@@ -73,28 +73,57 @@ public class AlunoController {
         return ResponseEntity.ok().body("Aluno inserido");
     }
 
-    @DeleteMapping("/excluir/{id}")
-    @Operation(summary = "Excluir um produto", description = "remover um produto do sistema")
+    @DeleteMapping("/excluir/{cpf}")
+    @Operation(summary = "Excluir um aluno", description = "remover um aluno do sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Produto excluído com sucesso",
+            @ApiResponse(responseCode = "200", description = "Aluno excluído com sucesso",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class))),
-            @ApiResponse(responseCode = "404", description = "Produto não encontrado",
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class)))
     })
-    public ResponseEntity<String> excluirProduto(@Parameter(description = "ID do produto") @Valid @PathVariable String cpf) {
-        Optional<Aluno> aluno = alunoService.buscarAlunoPorCpf(cpf);
+    public ResponseEntity<String> excluirProduto(@Parameter(description = "CPF do aluno") @Valid @PathVariable String cpf) {
+        Aluno aluno = alunoService.buscarAlunoPorCpf(cpf);
         if (aluno != null){
             alunoService.excluirAluno(cpf);
             return ResponseEntity.ok("deu certo");
         }else {
             return  ResponseEntity.ok("deu ruim");
         }
-
-
     }
 
+    @PutMapping("/atualizar/{cpf}")
+    @Operation(summary = "Atualizar um aluno", description = "Atualiza um aluno ja existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aluno atualizado com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "404", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class)))
+    })
+    public ResponseEntity<String> atualizarProduto(@Parameter(description = "ID do aluno")    @Valid @PathVariable String cpf, @RequestBody Aluno alunoAtualizado) {
+        Aluno alunoExistente = alunoService.buscarAlunoPorCpf(cpf);
+        if (alunoExistente != null) {
+            Aluno aluno = alunoExistente;
+            aluno.setNome(alunoAtualizado.getNome());
+            aluno.setSexo(alunoAtualizado.getSexo());
+            aluno.setIdade(alunoAtualizado.getIdade());
+            aluno.setEscola(alunoAtualizado.getEscola());
+            aluno.setTurno(alunoAtualizado.getTurno());
+            aluno.setPcd(alunoAtualizado.getPcd());
+            aluno.setFoto(alunoAtualizado.getFoto());
+            aluno.setCpf(alunoAtualizado.getCpf());
+            aluno.setResponsavel_cpf(alunoAtualizado.getResponsavel_cpf());
+
+            alunoService.salvarAluno(aluno);
+            return ResponseEntity.ok("Aluno atualizado com sucesso");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 
 
 

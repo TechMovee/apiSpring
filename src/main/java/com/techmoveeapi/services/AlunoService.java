@@ -21,21 +21,21 @@ public class AlunoService {
         return this.alunoRepository.save(aluno);
     }
 
-    public Optional<Aluno> buscarAlunoPorCpf(String cpf){
-        return this.alunoRepository.findByCpf(cpf);
+    public Aluno buscarAlunoPorCpf(String cpf){
+        return alunoRepository.findByCpf(cpf).orElseThrow(() ->
+                new RuntimeException("Aluno não encontardo"));
     }
 
     public List<Aluno> buscarTodosAlunos(){
         return this.alunoRepository.findAll();
     }
 
-    public Aluno excluirAluno(String cpf){
-        Optional<Aluno> alunos = this.alunoRepository.findByCpf(cpf);
-
-        if (alunos.isPresent()){
-            this.alunoRepository.deleteByCpf(cpf);
-            return alunos.get();
+    public Aluno excluirAluno(String cpf) {
+        Optional<Aluno> aluno = this.alunoRepository.findByCpf(cpf); // Renomeia para aluno
+        if (aluno.isPresent()) {
+            this.alunoRepository.deleteByCpf(cpf); // Deleta pelo CPF
+            return aluno.get(); // Retorna o aluno deletado
         }
-        return null;
+        return null; // Pode ser uma exceção ou outro valor adequado
     }
 }
