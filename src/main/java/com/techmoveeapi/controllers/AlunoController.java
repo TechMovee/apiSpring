@@ -3,6 +3,7 @@ package com.techmoveeapi.controllers;
 import com.techmoveeapi.model.Aluno;
 import com.techmoveeapi.services.AlunoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/aluno")
@@ -71,6 +73,27 @@ public class AlunoController {
         return ResponseEntity.ok().body("Aluno inserido");
     }
 
+    @DeleteMapping("/excluir/{id}")
+    @Operation(summary = "Excluir um produto", description = "remover um produto do sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto excluído com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "404", description = "Produto não encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class)))
+    })
+    public ResponseEntity<String> excluirProduto(@Parameter(description = "ID do produto") @Valid @PathVariable String cpf) {
+        Optional<Aluno> aluno = alunoService.buscarAlunoPorCpf(cpf);
+        if (aluno != null){
+            alunoService.excluirAluno(cpf);
+            return ResponseEntity.ok("deu certo");
+        }else {
+            return  ResponseEntity.ok("deu ruim");
+        }
+
+
+    }
 
 
 
