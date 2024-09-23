@@ -14,16 +14,16 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Entity
 @Table(name = "responsaveis_telefones")
-public class Responsaveis_telefones {
+public class ResponsaveisTelefones {
     @Id
     private String responsavel_cpf;
     @Id
     private int telefone_id;
-    public Responsaveis_telefones(String responsavel_cpf, int telefone_id) {
+    public ResponsaveisTelefones(String responsavel_cpf, int telefone_id) {
         this.responsavel_cpf = responsavel_cpf;
         this.telefone_id = telefone_id;
     }
 
-    public Responsaveis_telefones() {
+    public ResponsaveisTelefones() {
     }
 }
