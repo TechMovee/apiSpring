@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface ResponsaveisRepository extends JpaRepository<Responsaveis, String> {
-    Optional<Responsaveis> findByCPF(String cpf);
+    Optional<Responsaveis> findByCpf(String cpf);
 
     @Modifying
     @Transactional

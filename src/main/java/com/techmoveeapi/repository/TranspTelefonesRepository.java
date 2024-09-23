@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface TranspTelefonesRepository extends JpaRepository<TransportadoresTelefones, String> {
-    Optional<TransportadoresTelefones> findByID(String transportador_cnh);
+    Optional<TransportadoresTelefones> findById(String transportador_cnh);
 
     @Modifying
     @Transactional

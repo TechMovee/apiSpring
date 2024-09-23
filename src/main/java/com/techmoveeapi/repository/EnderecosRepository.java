@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface EnderecosRepository extends JpaRepository<Endereco, Integer> {
-    Optional<Endereco> findByID(int id);
+    Optional<Endereco> findById(int id);
 
     @Modifying
     @Transactional

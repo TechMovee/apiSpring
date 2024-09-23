@@ -71,7 +71,7 @@ public class EnderecosController {
                             schema = @Schema(implementation = Endereco.class)))
     })
     public ResponseEntity<?> buscarPorId(@Parameter(description = "Cpf do endereco") @RequestParam int id){
-        Endereco endereco = enderecosService.buscarEnderecoPorID(id);
+        Endereco endereco = enderecosService.buscarEnderecoPorId(id);
         if (endereco != null) {
             return ResponseEntity.ok(endereco);
         }else {
@@ -112,7 +112,7 @@ public class EnderecosController {
                             schema = @Schema(implementation = Endereco.class)))
     })
     public ResponseEntity<String> excluirEndereco(@Parameter(description = "Id do endereco") @Valid @PathVariable int id) {
-        Endereco endereco = enderecosService.buscarEnderecoPorID(id);
+        Endereco endereco = enderecosService.buscarEnderecoPorId(id);
         if (endereco != null){
             enderecosService.excluirEndereco(id);
             return ResponseEntity.ok("deu certo");
@@ -137,7 +137,7 @@ public class EnderecosController {
                             schema = @Schema(implementation = Endereco.class)))
     })
     public ResponseEntity<String> atualizarEndereco(@Parameter(description = "ID do endereco")    @Valid @PathVariable int id, @RequestBody Endereco enderecoAtualizado) {
-        Endereco enderecoExistente = enderecosService.buscarEnderecoPorID(id);
+        Endereco enderecoExistente = enderecosService.buscarEnderecoPorId(id);
         if (enderecoExistente != null) {
             Endereco endereco = enderecoExistente;
             endereco.setCep(enderecoAtualizado.getCep());
@@ -168,7 +168,7 @@ public class EnderecosController {
     })
     public  ResponseEntity<?> atualizarEnderecoParcial(@Parameter(description = "Cpf do endereco") @PathVariable int id, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"cep\": \"CEP\","+"\"bairro\": \"BAIRRO\","+"\"rua\": \"RUA\","+"\"numero\": \"NUMERO\"}")) ) @RequestBody Map<String, Object> updates) {
         try{
-            Endereco endereco = enderecosService.buscarEnderecoPorID(id);
+            Endereco endereco = enderecosService.buscarEnderecoPorId(id);
             if (updates.containsKey("cep")) {
                 endereco.setCep((String) updates.get("cep"));
             }

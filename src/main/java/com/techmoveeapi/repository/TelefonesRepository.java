@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface TelefonesRepository extends JpaRepository<Telefones, Integer> {
-    Optional<Telefones> findByID(int id);
+    Optional<Telefones> findById(int id);
 
     @Modifying
     @Transactional

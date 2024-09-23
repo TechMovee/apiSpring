@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface RotasRepository extends JpaRepository<Rotas, Integer> {
-    Optional<Rotas> findByID(int id);
+    Optional<Rotas> findById(int id);
 
     @Modifying
     @Transactional

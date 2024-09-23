@@ -19,8 +19,8 @@ public class EnderecosService {
         return this.enderecosRepository.save(endereco);
     }
 
-    public Endereco buscarEnderecoPorID(int id){
-        return this.enderecosRepository.findByID(id).orElseThrow(() ->
+    public Endereco buscarEnderecoPorId(int id){
+        return this.enderecosRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Endereço não encontrado"));
     }
 
@@ -29,7 +29,7 @@ public class EnderecosService {
     }
 
     public Endereco excluirEndereco(int id) {
-        Optional<Endereco> Endereco = this.enderecosRepository.findByID(id);
+        Optional<Endereco> Endereco = this.enderecosRepository.findById(id);
         if (Endereco.isPresent()) {
             this.enderecosRepository.deleteById(id);
             return Endereco.get();

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface VanRepostory extends JpaRepository<Van, String> {
-    Optional<Van> findByID(String placa);
+    Optional<Van> findById(String placa);
 
     @Modifying
     @Transactional

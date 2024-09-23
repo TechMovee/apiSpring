@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface TransportadoresRepository extends JpaRepository<Transportadores, String> {
 
-    Optional<Transportadores> findByID(String cpf);
+    Optional<Transportadores> findById(String cpf);
 
 
     @Modifying

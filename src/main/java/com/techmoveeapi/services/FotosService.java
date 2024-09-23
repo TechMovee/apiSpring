@@ -22,7 +22,7 @@ public class FotosService {
     }
 
     public Fotos buscarFotosPorID(int id){
-        return this.fotosRepository.findByID(id).orElseThrow(() ->
+        return this.fotosRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Foto não encontrada"));
     }
 
@@ -31,7 +31,7 @@ public class FotosService {
     }
 
     public Fotos excluirFotos(int id) {
-        Optional<Fotos> Fotos = this.fotosRepository.findByID(id);
+        Optional<Fotos> Fotos = this.fotosRepository.findById(id);
         if (Fotos.isPresent()) {
             this.fotosRepository.deleteById(id);
             return Fotos.get();

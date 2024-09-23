@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface FotosRepository extends JpaRepository<Fotos, Integer> {
-    Optional<Fotos> findByID(int id);
+    Optional<Fotos> findById(int id);
 
     @Modifying
     @Transactional
