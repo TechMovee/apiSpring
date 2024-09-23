@@ -58,7 +58,7 @@ public class EnderecosController {
     }
 
     @GetMapping("/buscarPorId/{id}")
-    @Operation(summary = "Buscar um novo endereco pelo nome", description = "Busca o endereco pelo id e mostra seus dados ")
+    @Operation(summary = "Buscar um novo endereco pelo id", description = "Busca o endereco pelo id e mostra seus dados ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Endereco selecionado",
                     content = @Content(mediaType = "application/json",
@@ -70,7 +70,7 @@ public class EnderecosController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Endereco.class)))
     })
-    public ResponseEntity<?> buscarPorCpf(@Parameter(description = "Cpf do endereco") @RequestParam int id){
+    public ResponseEntity<?> buscarPorId(@Parameter(description = "Cpf do endereco") @RequestParam int id){
         Endereco endereco = enderecosService.buscarEnderecoPorID(id);
         if (endereco != null) {
             return ResponseEntity.ok(endereco);
@@ -136,7 +136,7 @@ public class EnderecosController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Endereco.class)))
     })
-    public ResponseEntity<String> atualizarProduto(@Parameter(description = "ID do endereco")    @Valid @PathVariable int id, @RequestBody Endereco enderecoAtualizado) {
+    public ResponseEntity<String> atualizarEndereco(@Parameter(description = "ID do endereco")    @Valid @PathVariable int id, @RequestBody Endereco enderecoAtualizado) {
         Endereco enderecoExistente = enderecosService.buscarEnderecoPorID(id);
         if (enderecoExistente != null) {
             Endereco endereco = enderecoExistente;
