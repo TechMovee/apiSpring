@@ -1,7 +1,6 @@
 package com.techmoveeapi.repository;
 
-import com.techmoveeapi.model.Endereco;
-import com.techmoveeapi.model.Fotos;
+import com.techmoveeapi.model.TransportadoresTelefones;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,12 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+
 @Repository
-public interface FotosRepository extends JpaRepository<Fotos, Integer> {
-    Optional<Fotos> findByID(int id);
+public interface TranspTelefonesRepository extends JpaRepository<TransportadoresTelefones, String> {
+    Optional<TransportadoresTelefones> findByID(String transportador_cnh);
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Fotos e WHERE e.id = ?1")
-    void deleteById(int id);
+    @Query("DELETE FROM TransportadoresTelefones e WHERE e.transportador_cnh = ?1")
+    void deleteByCpf(String transportador_cnh);
 }
