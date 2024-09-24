@@ -1,10 +1,7 @@
 package com.techmoveeapi.controllers;
 
-import com.techmoveeapi.model.*;
+
 import com.techmoveeapi.model.Responsaveis;
-import com.techmoveeapi.model.Responsaveis;
-import com.techmoveeapi.model.Responsaveis;
-import com.techmoveeapi.services.ResponsaveisService;
 import com.techmoveeapi.services.ResponsaveisService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

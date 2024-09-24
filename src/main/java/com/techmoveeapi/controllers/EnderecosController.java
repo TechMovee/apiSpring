@@ -1,8 +1,5 @@
 package com.techmoveeapi.controllers;
 
-import com.techmoveeapi.model.*;
-import com.techmoveeapi.model.Endereco;
-import com.techmoveeapi.model.Endereco;
 import com.techmoveeapi.model.Endereco;
 import com.techmoveeapi.services.EnderecosService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -70,7 +67,7 @@ public class EnderecosController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Endereco.class)))
     })
-    public ResponseEntity<?> buscarPorId(@Parameter(description = "Cpf do endereco") @RequestParam int id){
+    public ResponseEntity<?> buscarPorId(@Parameter(description = "Id do endereco") @RequestParam int id){
         Endereco endereco = enderecosService.buscarEnderecoPorId(id);
         if (endereco != null) {
             return ResponseEntity.ok(endereco);
@@ -166,7 +163,7 @@ public class EnderecosController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Endereco.class)))
     })
-    public  ResponseEntity<?> atualizarEnderecoParcial(@Parameter(description = "Cpf do endereco") @PathVariable int id, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"cep\": \"CEP\","+"\"bairro\": \"BAIRRO\","+"\"rua\": \"RUA\","+"\"numero\": \"NUMERO\"}")) ) @RequestBody Map<String, Object> updates) {
+    public  ResponseEntity<?> atualizarEnderecoParcial(@Parameter(description = "Id do endereco") @PathVariable int id, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"cep\": \"CEP\","+"\"bairro\": \"BAIRRO\","+"\"rua\": \"RUA\","+"\"numero\": \"NUMERO\"}")) ) @RequestBody Map<String, Object> updates) {
         try{
             Endereco endereco = enderecosService.buscarEnderecoPorId(id);
             if (updates.containsKey("cep")) {
