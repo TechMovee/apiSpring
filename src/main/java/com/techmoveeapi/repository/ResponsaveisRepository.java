@@ -17,5 +17,5 @@ public interface ResponsaveisRepository extends JpaRepository<Responsaveis, Stri
     @Modifying
     @Transactional
     @Query("DELETE FROM Responsaveis e WHERE e.cpf = ?1")
-    void deleteById(String cpf);
+    void deleteByCpf(String cpf);
 }
