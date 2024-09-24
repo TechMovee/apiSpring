@@ -1,15 +1,13 @@
 package com.techmoveeapi.services;
 
-import com.techmoveeapi.model.Aluno;
 import com.techmoveeapi.model.Responsaveis;
-import com.techmoveeapi.repository.AlunoRepository;
 import com.techmoveeapi.repository.ResponsaveisRepository;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@Service
 public class ResponsaveisService {
     private final ResponsaveisRepository responsaveisRepository;
     public ResponsaveisService(ResponsaveisRepository responsaveisRepository) {

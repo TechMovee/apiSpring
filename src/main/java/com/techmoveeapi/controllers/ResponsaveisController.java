@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.persistence.Id;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +57,7 @@ public class ResponsaveisController {
     }
 
     @GetMapping("/buscarPorCpf/{cpf}")
-    @Operation(summary = "Buscar um novo responsavel pelo nome", description = "Busca o responsavel pelo cpf e mostra seus dados ")
+    @Operation(summary = "Buscar um novo responsavel pelo cpf", description = "Busca o responsavel pelo cpf e mostra seus dados ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Responsavel selecionado",
                     content = @Content(mediaType = "application/json",
@@ -133,11 +134,17 @@ public class ResponsaveisController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Responsaveis.class)))
     })
-    public ResponseEntity<String> atualizarResponsavel(@Parameter(description = "ID do resposavel")    @Valid @PathVariable String cpf, @RequestBody Responsaveis resposavelAtualizado) {
+    public ResponseEntity<String> atualizarResponsavel(@Parameter(description = "Id do resposavel")    @Valid @PathVariable String cpf, @RequestBody Responsaveis resposavelAtualizado) {
         Responsaveis responsavelExistente = responsaveisService.buscarResponsavelPorCpf(cpf);
         if (responsavelExistente != null) {
             Responsaveis responsavel = responsavelExistente;
+            responsavel.setDt_nascimento(resposavelAtualizado.getDt_nascimento());
+            responsavel.setSexo(resposavelAtualizado.getSexo());
+            responsavel.setCpf(resposavelAtualizado.getCpf());
+            responsavel.setFoto(resposavelAtualizado.getFoto());
+            responsavel.setSenha(resposavelAtualizado.getSenha());
             responsavel.setNome(resposavelAtualizado.getNome());
+            responsavel.setEndereco_id(resposavelAtualizado.getEndereco_id());
 
 
             responsaveisService.salvarResponsavel(responsavel);
