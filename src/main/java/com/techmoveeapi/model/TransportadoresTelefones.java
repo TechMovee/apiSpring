@@ -13,23 +13,17 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "vans")
-public class Vans {
-    private String modelo;
-    private int ano;
-    private int foto_id;
+@Table(name = "Transportadores_telefones")
+public class TransportadoresTelefones {
     @Id
-    private String placa;
     private String transportador_cnh;
-    public Vans() {
-    }
+    private int telefone_id;
 
-    public Vans(String modelo, int ano, int foto_id, String placa, String transportador_cnh) {
-        this.modelo = modelo;
-        this.ano = ano;
-        this.foto_id = foto_id;
-        this.placa = placa;
+    public TransportadoresTelefones(int telefone_id, String transportador_cnh) {
+        this.telefone_id = telefone_id;
         this.transportador_cnh = transportador_cnh;
     }
-}
 
+    public TransportadoresTelefones() {
+    }
+}

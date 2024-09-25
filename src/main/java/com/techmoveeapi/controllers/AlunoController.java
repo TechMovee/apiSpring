@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.FieldError;
@@ -27,6 +28,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/aluno")
 @Validated
+@Controller
 public class AlunoController {
 
 
@@ -104,9 +106,12 @@ public class AlunoController {
                             schema = @Schema(implementation = Aluno.class))),
             @ApiResponse(responseCode = "404", description = "Aluno não encontrado",
                     content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class)))
     })
-    public ResponseEntity<String> excluirProduto(@Parameter(description = "CPF do aluno") @Valid @PathVariable String cpf) {
+    public ResponseEntity<String> excluirAluno(@Parameter(description = "CPF do aluno") @Valid @PathVariable String cpf) {
         Aluno aluno = alunoService.buscarAlunoPorCpf(cpf);
         if (aluno != null){
             alunoService.excluirAluno(cpf);
@@ -124,9 +129,12 @@ public class AlunoController {
                             schema = @Schema(implementation = Aluno.class))),
             @ApiResponse(responseCode = "404", description = "Erro interno do servidor",
                     content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class)))
     })
-    public ResponseEntity<String> atualizarProduto(@Parameter(description = "ID do aluno")    @Valid @PathVariable String cpf, @RequestBody Aluno alunoAtualizado) {
+    public ResponseEntity<String> atualizarAluno(@Parameter(description = "ID do aluno")    @Valid @PathVariable String cpf, @RequestBody Aluno alunoAtualizado) {
         Aluno alunoExistente = alunoService.buscarAlunoPorCpf(cpf);
         if (alunoExistente != null) {
             Aluno aluno = alunoExistente;
@@ -162,7 +170,7 @@ public class AlunoController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aluno.class)))
     })
-    public  ResponseEntity<?> atualizarProdutoParcial(@Parameter(description = "Cpf do aluno") @PathVariable String cpf, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"nome\": \"NOME\","+"\"sexo\": \"SEXO\","+"\"idade\": \"IDADE\","+"\"escola\": \"ESCOLA\","+"\"turno\": \"TURNO\","+"\"pcd\": \"PCD\","+"\"foto\": \"FOTO\","+"\"cpf\": \"CPF\","+"\"responsavel_cpf\": \"RESPONSAVEL_CPF\"}")) ) @RequestBody Map<String, Object> updates) {
+    public  ResponseEntity<?> atualizarAlunoParcial(@Parameter(description = "Cpf do aluno") @PathVariable String cpf, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"nome\": \"NOME\","+"\"sexo\": \"SEXO\","+"\"idade\": \"IDADE\","+"\"escola\": \"ESCOLA\","+"\"turno\": \"TURNO\","+"\"pcd\": \"PCD\","+"\"foto\": \"FOTO\","+"\"cpf\": \"CPF\","+"\"responsavel_cpf\": \"RESPONSAVEL_CPF\"}")) ) @RequestBody Map<String, Object> updates) {
         try{
             Aluno aluno = alunoService.buscarAlunoPorCpf(cpf);
             if (updates.containsKey("nome")) {

@@ -1,7 +1,6 @@
 package com.techmoveeapi.repository;
 
-import com.techmoveeapi.model.Fotos;
-import com.techmoveeapi.model.Responsaveis;
+import com.techmoveeapi.model.TransportadoresTelefones;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ResponsaveisRepository extends JpaRepository<Responsaveis, String> {
-    Optional<Responsaveis> findByCpf(String cpf);
+public interface TranspTelefonesRepository extends JpaRepository<TransportadoresTelefones, String> {
+    Optional<TransportadoresTelefones> findById(String transportador_cnh);
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Responsaveis e WHERE e.cpf = ?1")
-    void deleteByCpf(String cpf);
+    @Query("DELETE FROM TransportadoresTelefones e WHERE e.transportador_cnh = ?1")
+    void deleteByCpf(String transportador_cnh);
 }
