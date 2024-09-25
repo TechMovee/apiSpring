@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface VanRepostory extends JpaRepository<Van, String> {
-    Optional<Van> findById(String placa);
+public interface VanRepository extends JpaRepository<Van, String> {
+    Optional<Van> findByPlaca(String placa);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Van e WHERE e.placa = ?1")
-    void deleteByCpf(String placa);
+    void deleteByPlaca(String placa);
 }
