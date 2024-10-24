@@ -17,20 +17,20 @@ import java.time.LocalDate;
 @Table(name = "responsaveis")
 public class Responsaveis {
     private LocalDate dt_nascimento;
-    private String sexo;
+    private String email;
     @Id
     private String cpf;
-    private String foto;
+    private int foto_id;
     private String senha;
     private String nome;
     private int endereco_id;
     public Responsaveis() {
     }
-    public Responsaveis(LocalDate dt_nascimento, String sexo, String cpf, String foto, String senha, String nome, int endereco_id) {
+    public Responsaveis(LocalDate dt_nascimento, String email, String cpf, int foto_id, String senha, String nome, int endereco_id) {
         this.dt_nascimento = dt_nascimento;
-        this.sexo = sexo;
+        this.email = email;
         this.cpf = cpf;
-        this.foto = foto;
+        this.foto_id = foto_id;
         this.senha = senha;
         this.nome = nome;
         this.endereco_id = endereco_id;

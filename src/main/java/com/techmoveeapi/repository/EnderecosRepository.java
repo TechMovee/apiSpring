@@ -17,4 +17,7 @@ public interface EnderecosRepository extends JpaRepository<Endereco, Integer> {
     @Transactional
     @Query("DELETE FROM Endereco e WHERE e.id = ?1")
     void deleteById(int id);
+
+    @Query("SELECT MAX(e.id) FROM Endereco e")
+    Integer findMaxEnderecoId();
 }

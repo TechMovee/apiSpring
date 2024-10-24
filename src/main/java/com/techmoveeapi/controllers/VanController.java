@@ -143,7 +143,6 @@ public class VanController {
         if (vanExistente != null) {
             Van van = vanExistente;
             van.setModelo(vanAtualizada.getModelo());
-            van.setAno(vanAtualizada.getAno());
             van.setFoto_id(vanAtualizada.getFoto_id());
             van.setPlaca(vanAtualizada.getPlaca());
             van.setTransportador_cnh(vanAtualizada.getTransportador_cnh());
@@ -175,9 +174,6 @@ public class VanController {
             Van van = vanService.buscarVanPorPlaca(placa);
             if (updates.containsKey("modelo")){
                 van.setModelo((String) updates.get("modelo"));
-            }
-            if (updates.containsKey("ano")){
-                van.setAno((int) updates.get("ano"));
             }
             if (updates.containsKey("foto_id")){
                 van.setFoto_id((int) updates.get("foto_id"));

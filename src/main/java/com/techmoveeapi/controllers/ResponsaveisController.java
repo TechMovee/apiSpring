@@ -139,9 +139,8 @@ public class ResponsaveisController {
         if (responsavelExistente != null) {
             Responsaveis responsavel = responsavelExistente;
             responsavel.setDt_nascimento(resposavelAtualizado.getDt_nascimento());
-            responsavel.setSexo(resposavelAtualizado.getSexo());
             responsavel.setCpf(resposavelAtualizado.getCpf());
-            responsavel.setFoto(resposavelAtualizado.getFoto());
+            responsavel.setFoto_id(resposavelAtualizado.getFoto_id());
             responsavel.setSenha(resposavelAtualizado.getSenha());
             responsavel.setNome(resposavelAtualizado.getNome());
             responsavel.setEndereco_id(resposavelAtualizado.getEndereco_id());
@@ -173,14 +172,11 @@ public class ResponsaveisController {
             if (updates.containsKey("dt_nascimento")){
                 responsavel.setDt_nascimento((LocalDate) updates.get("dt_nascimento"));
             }
-            if (updates.containsKey("sexo")){
-                responsavel.setSexo((String) updates.get("sexo"));
-            }
             if (updates.containsKey("cpf")){
                 responsavel.setCpf((String) updates.get("cpf"));
             }
             if (updates.containsKey("foto")){
-                responsavel.setFoto((String) updates.get("foto"));
+                responsavel.setFoto_id((int) updates.get("foto"));
             }
             if (updates.containsKey("senha")){
                 responsavel.setSenha((String) updates.get("senha"));

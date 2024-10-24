@@ -142,10 +142,9 @@ public class TransportadoresController {
             transportador.setEmail(transportadorAtualizado.getEmail());
             transportador.setSenha(transportadorAtualizado.getSenha());
             transportador.setDt_nascimento(transportadorAtualizado.getDt_nascimento());
-            transportador.setFoto(transportadorAtualizado.getFoto());
+            transportador.setFoto_id(transportadorAtualizado.getFoto_id());
             transportador.setCpf(transportadorAtualizado.getCpf());
             transportador.setNome(transportadorAtualizado.getNome());
-            transportador.setSexo(transportadorAtualizado.getSexo());
             transportador.setCnh(transportadorAtualizado.getCnh());
 
             transportadoresService.salvarTransportador(transportador);
@@ -186,16 +185,13 @@ public class TransportadoresController {
                 transportador.setDt_nascimento((LocalDate) updates.get("dt_nascimento"));
             }
             if (updates.containsKey("foto")){
-                transportador.setFoto((String) updates.get("foto"));
+                transportador.setFoto_id((int) updates.get("foto"));
             }
             if (updates.containsKey("cpf")){
                 transportador.setCpf((String) updates.get("cpf"));
             }
             if (updates.containsKey("nome")){
                 transportador.setNome((String) updates.get("nome"));
-            }
-            if (updates.containsKey("sexo")){
-                transportador.setSexo((char) updates.get("sexo"));
             }
             if (updates.containsKey("cnh")){
                 transportador.setCnh((String) updates.get("cnh"));

@@ -16,20 +16,22 @@ import lombok.ToString;
 @Table(name = "vans")
 public class Van {
     private String modelo;
-    private int ano;
     private int foto_id;
     @Id
     private String placa;
     private String transportador_cnh;
+    private boolean acessibilidade;
+    private double mensalidade;
     public Van() {
     }
 
-    public Van(String modelo, int ano, int foto_id, String placa, String transportador_cnh) {
+    public Van(String modelo, int foto_id, String placa, String transportador_cnh, boolean acessibilidade, double mensalidade) {
         this.modelo = modelo;
-        this.ano = ano;
         this.foto_id = foto_id;
         this.placa = placa;
         this.transportador_cnh = transportador_cnh;
+        this.acessibilidade = acessibilidade;
+        this.mensalidade = mensalidade;
     }
 }
 
