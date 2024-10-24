@@ -1,5 +1,5 @@
 # Etapa 1: Construção
-FROM maven:3.8.3-openjdk-20 AS build
+FROM maven:3.8.3-openjdk-17 AS build
 
 # Define o diretório de trabalho
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY . .
 # Executa o comando Maven para construir o projeto
 RUN mvn clean package -DskipTests
 
-FROM openjdk:20
+FROM openjdk:17
 
 WORKDIR /app
 
