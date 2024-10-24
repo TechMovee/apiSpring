@@ -20,22 +20,20 @@ public class Transportadores {
     private String email;
     private String senha;
     private LocalDate dt_nascimento;
-    private String foto;
+    private int foto_id;
     private String cpf;
     private String nome;
-    private char sexo;
     @Id
     private String cnh;
 
-    public Transportadores(String cep, String email, String senha, LocalDate dt_nascimento, String foto, String cpf, String nome, char sexo, String cnh) {
+    public Transportadores(String cep, String email, String senha, LocalDate dt_nascimento, int foto_id, String cpf, String nome, String cnh) {
         this.cep = cep;
         this.email = email;
         this.senha = senha;
         this.dt_nascimento = dt_nascimento;
-        this.foto = foto;
+        this.foto_id = foto_id;
         this.cpf = cpf;
         this.nome = nome;
-        this.sexo = sexo;
         this.cnh = cnh;
     }
 

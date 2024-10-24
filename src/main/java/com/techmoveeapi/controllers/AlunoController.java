@@ -139,12 +139,11 @@ public class AlunoController {
         if (alunoExistente != null) {
             Aluno aluno = alunoExistente;
             aluno.setNome(alunoAtualizado.getNome());
-            aluno.setSexo(alunoAtualizado.getSexo());
             aluno.setIdade(alunoAtualizado.getIdade());
             aluno.setEscola(alunoAtualizado.getEscola());
             aluno.setTurno(alunoAtualizado.getTurno());
             aluno.setPcd(alunoAtualizado.getPcd());
-            aluno.setFoto(alunoAtualizado.getFoto());
+            aluno.setId_foto(alunoAtualizado.getId_foto());
             aluno.setCpf(alunoAtualizado.getCpf());
             aluno.setResponsavel_cpf(alunoAtualizado.getResponsavel_cpf());
 
@@ -176,9 +175,6 @@ public class AlunoController {
             if (updates.containsKey("nome")) {
                 aluno.setNome((String) updates.get("nome"));
             }
-            if (updates.containsKey("sexo")){
-                aluno.setSexo((Character) updates.get("sexo"));
-            }
             if (updates.containsKey("idade")){
                 aluno.setIdade((Integer) updates.get("idade"));
             }
@@ -192,7 +188,7 @@ public class AlunoController {
                 aluno.setPcd((String) updates.get("pcd"));
             }
             if (updates.containsKey("foto")){
-                aluno.setFoto((String) updates.get("foto"));
+                aluno.setId_foto((int) updates.get("foto"));
             }
             if (updates.containsKey("cpf")){
                 aluno.setCpf((String) updates.get("cpf"));

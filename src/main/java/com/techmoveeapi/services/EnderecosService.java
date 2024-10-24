@@ -16,6 +16,12 @@ public class EnderecosService {
     }
 
     public Endereco salvarEndereco(Endereco endereco){
+        // Busca o maior enderecoId existente e incrementa
+        Integer maxEnderecoId = enderecosRepository.findMaxEnderecoId();
+        Integer novoEnderecoId = (maxEnderecoId != null ? maxEnderecoId + 1 : 1);
+
+        // Define o enderecoId no novo endereço
+        endereco.setId(novoEnderecoId);
         return this.enderecosRepository.save(endereco);
     }
 
