@@ -1,6 +1,7 @@
 package com.techmoveeapi.controllers;
 
 import com.techmoveeapi.model.Aluno;
+import com.techmoveeapi.model.Escola;
 import com.techmoveeapi.services.AlunoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,8 +141,8 @@ public class AlunoController {
         if (alunoExistente != null) {
             Aluno aluno = alunoExistente;
             aluno.setNome(alunoAtualizado.getNome());
-            aluno.setIdade(alunoAtualizado.getIdade());
-            aluno.setEscola(alunoAtualizado.getEscola());
+            aluno.setDt_nascimento(alunoAtualizado.getDt_nascimento());
+            aluno.setEscola_id(alunoAtualizado.getEscola_id());
             aluno.setTurno(alunoAtualizado.getTurno());
             aluno.setPcd(alunoAtualizado.getPcd());
             aluno.setId_foto(alunoAtualizado.getId_foto());
@@ -176,10 +178,10 @@ public class AlunoController {
                 aluno.setNome((String) updates.get("nome"));
             }
             if (updates.containsKey("idade")){
-                aluno.setIdade((Integer) updates.get("idade"));
+                aluno.setDt_nascimento((LocalDate) updates.get("idade"));
             }
             if (updates.containsKey("escola")){
-                aluno.setEscola((String) updates.get("escola"));
+                aluno.setEscola_id((Escola) updates.get("escola"));
             }
             if (updates.containsKey("turno")){
                 aluno.setTurno((String) updates.get("turno"));

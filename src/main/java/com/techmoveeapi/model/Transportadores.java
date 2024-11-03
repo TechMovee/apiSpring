@@ -1,8 +1,6 @@
 package com.techmoveeapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +14,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "transportadores")
 public class Transportadores {
-    private String cep;
     private String email;
     private String senha;
     private LocalDate dt_nascimento;
@@ -25,9 +22,12 @@ public class Transportadores {
     private String nome;
     @Id
     private String cnh;
+    @ManyToOne
+    @JoinColumn(name = "telefone_id")
+    private Telefones telefone_id;
 
-    public Transportadores(String cep, String email, String senha, LocalDate dt_nascimento, int foto_id, String cpf, String nome, String cnh) {
-        this.cep = cep;
+    public Transportadores(String email, String senha, LocalDate dt_nascimento, int foto_id, String cpf, String nome, String cnh, Telefones telefone_id) {
+        this.telefone_id = telefone_id;
         this.email = email;
         this.senha = senha;
         this.dt_nascimento = dt_nascimento;

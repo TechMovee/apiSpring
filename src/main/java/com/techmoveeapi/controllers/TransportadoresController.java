@@ -138,7 +138,6 @@ public class TransportadoresController {
         Transportadores transportadorExistente = transportadoresService.buscarTransportadorPorCpf(cpf);
         if (transportadorExistente != null) {
             Transportadores transportador = transportadorExistente;
-            transportador.setCep(transportadorAtualizado.getCep());
             transportador.setEmail(transportadorAtualizado.getEmail());
             transportador.setSenha(transportadorAtualizado.getSenha());
             transportador.setDt_nascimento(transportadorAtualizado.getDt_nascimento());
@@ -172,9 +171,6 @@ public class TransportadoresController {
     public  ResponseEntity<?> atualizarTransportadoresParcial(@Parameter(description = "Cpf do transportador") @PathVariable String cpf, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"cep\": \"CEP\","+"\"email\": \"Email\","+"\"senha\": \"SENHA\","+"\"dt_nascimento\": \"DT_NASCIMENTO\","+"\"foto\": \"FOTO\","+"\"cpf\": \"CPF\","+"\"nome\": \"nome\","+"\"sexo\": \"SEXO\","+"\"cnh\": \"CNH\"}")) ) @RequestBody Map<String, Object> updates) {
         try{
             Transportadores transportador = transportadoresService.buscarTransportadorPorCpf(cpf);
-            if (updates.containsKey("cep")){
-                transportador.setCep((String) updates.get("cep"));
-            }
             if (updates.containsKey("email")){
                 transportador.setEmail((String) updates.get("email"));
             }

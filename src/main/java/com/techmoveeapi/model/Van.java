@@ -22,10 +22,12 @@ public class Van {
     private String transportador_cnh;
     private boolean acessibilidade;
     private double mensalidade;
+    private Integer capacidade;
     public Van() {
     }
 
-    public Van(String modelo, int foto_id, String placa, String transportador_cnh, boolean acessibilidade, double mensalidade) {
+    public Van(String modelo, int foto_id, String placa, String transportador_cnh, boolean acessibilidade, double mensalidade, Integer capacidade) {
+        this.capacidade = capacidade;
         this.modelo = modelo;
         this.foto_id = foto_id;
         this.placa = placa;
