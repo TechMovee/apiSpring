@@ -1,8 +1,6 @@
 package com.techmoveeapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +13,16 @@ import lombok.ToString;
 @Entity
 @Table(name = "fotos")
 public class Fotos {
+
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false)
     private String url;
 
     public Fotos() {}
-    public Fotos(int id, String url) {
+    public Fotos(Integer id, String url) {
         this.id = id;
         this.url = url;
     }
