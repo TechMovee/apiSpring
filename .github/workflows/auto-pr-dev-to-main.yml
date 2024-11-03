@@ -21,4 +21,4 @@ jobs:
           pr_title: "PR automático de push"
           pr_body: "."
           pr_draft: false
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.token }}
