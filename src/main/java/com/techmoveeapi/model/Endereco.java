@@ -1,8 +1,6 @@
 package com.techmoveeapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +15,20 @@ import lombok.ToString;
 public class Endereco {
 
     @Id
-    private int id;
-    private String cep;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false, length = 100)
     private String bairro;
+
+    @Column(nullable = false, length = 100)
     private String rua;
+
+    @Column(nullable = false, length = 10)
     private String numero;
+
+    @Column(nullable = false, length = 9)
+    private String cep;
 
     public Endereco(){
 

@@ -1,7 +1,10 @@
 package com.techmoveeapi.controllers;
 
 
+import com.techmoveeapi.model.Endereco;
 import com.techmoveeapi.model.Responsaveis;
+
+import com.techmoveeapi.model.Telefones;
 import com.techmoveeapi.services.ResponsaveisService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -26,6 +29,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/responsavel")
@@ -52,7 +56,7 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public ResponseEntity<List<Responsaveis>> listarResponsaveis(){
-        List<Responsaveis> listaResponsaveis = responsaveisService.buscarTodosResponsaveis();
+        List<Responsaveis> listaResponsaveis = responsaveisService.getAllResponsaveis();
         return ResponseEntity.ok(listaResponsaveis);
     }
 
@@ -70,11 +74,11 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public ResponseEntity<?> buscarPorCpf(@Parameter(description = "Cpf do responsavel") @RequestParam String cpf){
-        Responsaveis responsavel = responsaveisService.buscarResponsavelPorCpf(cpf);
-        if (responsavel != null) {
-            return ResponseEntity.ok(responsavel);
+        Responsaveis endereco = responsaveisService.getResponsaveisByCpf(cpf);
+        if (endereco != null) {
+            return ResponseEntity.ok(endereco);
         }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Responsavel não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endereco não encontrado");
         }
     }
 
@@ -82,7 +86,7 @@ public class ResponsaveisController {
     @Operation(summary = "Insere um novo responsavel",
             description = "Insere um novo responsavel")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Responsaveis inserido",
+            @ApiResponse(responseCode = "200", description = "Responsavel inserido",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Responsaveis.class))),
             @ApiResponse(responseCode = "404", description = "Requisição inválida",
@@ -93,18 +97,18 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public ResponseEntity<?> inserirResponsaveis(@Valid @RequestBody Responsaveis responsavel) {
-        responsaveisService.salvarResponsavel(responsavel);
-        return ResponseEntity.ok().body("Responsaveis inserido");
+        Responsaveis createdResponsavel = responsaveisService.createResponsaveis(responsavel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdResponsavel);
     }
 
 
     @DeleteMapping("/excluir/{cpf}")
     @Operation(summary = "Excluir um responsavel", description = "remover um responsavel do sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Responsaveis excluído com sucesso",
+            @ApiResponse(responseCode = "200", description = "Responsavel excluído com sucesso",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Responsaveis.class))),
-            @ApiResponse(responseCode = "404", description = "Responsaveis não encontrado",
+            @ApiResponse(responseCode = "404", description = "Responsavel não encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Responsaveis.class))),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
@@ -112,9 +116,9 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public ResponseEntity<String> excluirResponsaveis(@Parameter(description = "CPF do responsavel") @Valid @PathVariable String cpf) {
-        Responsaveis responsavel = responsaveisService.buscarResponsavelPorCpf(cpf);
+        Responsaveis responsavel = responsaveisService.getResponsaveisByCpf(cpf);
         if (responsavel != null){
-            responsaveisService.excluirResponsavel(cpf);
+            responsaveisService.deleteResponsaveis(cpf);
             return ResponseEntity.ok("deu certo");
         }else {
             return  ResponseEntity.ok("deu ruim");
@@ -135,20 +139,27 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public ResponseEntity<String> atualizarResponsavel(@Parameter(description = "Id do resposavel")    @Valid @PathVariable String cpf, @RequestBody Responsaveis resposavelAtualizado) {
-        Responsaveis responsavelExistente = responsaveisService.buscarResponsavelPorCpf(cpf);
-        if (responsavelExistente != null) {
-            Responsaveis responsavel = responsavelExistente;
-            responsavel.setDt_nascimento(resposavelAtualizado.getDt_nascimento());
-            responsavel.setCpf(resposavelAtualizado.getCpf());
-            responsavel.setFoto_id(resposavelAtualizado.getFoto_id());
-            responsavel.setSenha(resposavelAtualizado.getSenha());
-            responsavel.setNome(resposavelAtualizado.getNome());
-            responsavel.setEndereco_id(resposavelAtualizado.getEndereco_id());
+//        Responsaveis responsavelExistente = responsaveisService.buscarResponsavelPorCpf(cpf);
+//        if (responsavelExistente != null) {
+//            Responsaveis responsavel = responsavelExistente;
+//            responsavel.setDt_nascimento(resposavelAtualizado.getDt_nascimento());
+//            responsavel.setCpf(resposavelAtualizado.getCpf());
+//            responsavel.setFoto_id(resposavelAtualizado.getFoto_id());
+//            responsavel.setSenha(resposavelAtualizado.getSenha());
+//            responsavel.setNome(resposavelAtualizado.getNome());
+//            responsavel.setEndereco_id(resposavelAtualizado.getEndereco_id());
+//
+//
+//            responsaveisService.salvarResponsavel(responsavel);
+//            return ResponseEntity.ok("Responsavel atualizado com sucesso");
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
 
-
-            responsaveisService.salvarResponsavel(responsavel);
-            return ResponseEntity.ok("Responsavel atualizado com sucesso");
-        } else {
+        try {
+            Responsaveis responsavel = responsaveisService.updateResponsaveis(cpf, resposavelAtualizado);
+            return ResponseEntity.ok().body("deu bom");
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -156,10 +167,10 @@ public class ResponsaveisController {
     @PatchMapping("/atualizarParcial/{cpf}")
     @Operation(summary = "Atualizar parcialmente as informações de um responsavel", description = "Atualiza uma parte das informações do responsavel")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Respçonsavel atualizado com sucesso",
+            @ApiResponse(responseCode = "200", description = "Responsavel atualizado com sucesso",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Responsaveis.class))),
-            @ApiResponse(responseCode = "404", description = "Responsaveis não encontrado",
+            @ApiResponse(responseCode = "404", description = "Responsavel não encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Responsaveis.class))),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
@@ -167,58 +178,60 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public  ResponseEntity<?> atualizarResponsaveisParcial(@Parameter(description = "Cpf do responsavel") @PathVariable String cpf, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"dt_nascimento\": \"DT_NASCIMENTO\","+"\"sexo\": \"SEXO\","+"\"cpf\": \"CPF\","+"\"foto\": \"FOTO\","+"\"senha\": \"SENHA\","+"\"nome\": \"NOME\","+"\"endereco_id\": \"ENDERECO_ID\"}")) ) @RequestBody Map<String, Object> updates) {
-        try{
-            Responsaveis responsavel = responsaveisService.buscarResponsavelPorCpf(cpf);
-            if (updates.containsKey("dt_nascimento")){
-                responsavel.setDt_nascimento((LocalDate) updates.get("dt_nascimento"));
-            }
-            if (updates.containsKey("cpf")){
-                responsavel.setCpf((String) updates.get("cpf"));
-            }
-            if (updates.containsKey("foto")){
-                responsavel.setFoto_id((int) updates.get("foto"));
-            }
-            if (updates.containsKey("senha")){
-                responsavel.setSenha((String) updates.get("senha"));
-            }
-            if (updates.containsKey("nome")){
-                responsavel.setNome((String) updates.get("nome"));
-            }
-            if (updates.containsKey("endereco_id")){
-                responsavel.setEndereco_id((Integer) updates.get("endereco_id"));
-            }
-
-
-
-
-            //validar
-            DataBinder binder = new DataBinder(responsavel);
-            binder.setValidator(validador);
-            binder.validate();
-            BindingResult result = binder.getBindingResult();
-            if (result.hasErrors()){
-                Map erros = handlerValidator(result);
-                return ResponseEntity.badRequest().body(erros);
-            }
-            Responsaveis produtosalvo = responsaveisService.salvarResponsavel(responsavel);
-            return ResponseEntity.ok("Responsavel atualizado parcialmente com sucesso");
-        }catch (RuntimeException re){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).
-                    body("Responsavel com CPF " + cpf + " não encontrado");
+//        try{
+//            Responsaveis responsavel = responsaveisService.buscarResponsavelPorCpf(cpf);
+//            if (updates.containsKey("dt_nascimento")){
+//                responsavel.setDt_nascimento((LocalDate) updates.get("dt_nascimento"));
+//            }
+//            if (updates.containsKey("cpf")){
+//                responsavel.setCpf((String) updates.get("cpf"));
+//            }
+//            if (updates.containsKey("foto")){
+//                responsavel.setFoto_id((int) updates.get("foto"));
+//            }
+//            if (updates.containsKey("senha")){
+//                responsavel.setSenha((String) updates.get("senha"));
+//            }
+//            if (updates.containsKey("nome")){
+//                responsavel.setNome((String) updates.get("nome"));
+//            }
+//            if (updates.containsKey("endereco_id")){
+//                responsavel.setEndereco_id((Integer) updates.get("endereco_id"));
+//            }
+//            //validar
+//            DataBinder binder = new DataBinder(responsavel);
+//            binder.setValidator(validador);
+//            binder.validate();
+//            BindingResult result = binder.getBindingResult();
+//            if (result.hasErrors()){
+//                Map erros = handlerValidator(result);
+//                return ResponseEntity.badRequest().body(erros);
+//            }
+//            Responsaveis produtosalvo = responsaveisService.salvarResponsavel(responsavel);
+//            return ResponseEntity.ok("Responsavel atualizado parcialmente com sucesso");
+//        }catch (RuntimeException re){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+//                    body("Responsavel com CPF " + cpf + " não encontrado");
+//        }
+        try {
+            Responsaveis responsavel = responsaveisService.partialUpdateResponsavel(cpf, updates);
+            return ResponseEntity.ok(responsavel);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
         }
     }
 
 
 
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public Map<String, String> handlerValidator(BindingResult result){
-        Map<String, String> errors = new HashMap<>();
-        for (FieldError error : result.getFieldErrors()){
-            errors.put(error.getField(), error.getDefaultMessage());
-        }
-        return errors;
-    }
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseBody
+//    public Map<String, String> handlerValidator(BindingResult result){
+//        Map<String, String> errors = new HashMap<>();
+//        for (FieldError error : result.getFieldErrors()){
+//            errors.put(error.getField(), error.getDefaultMessage());
+//        }
+//        return errors;
+//    }
 }

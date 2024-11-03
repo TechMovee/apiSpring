@@ -12,6 +12,15 @@ import java.util.Optional;
 
 @Repository
 public interface ResponsaveisRepository extends JpaRepository<Responsaveis, String> {
+//    @Query("SELECT t1, t2 FROM Responsaveis t1 JOIN Endereco t2 ON t1.endereco_id = t2.id WHERE t1.endereco_id = ?1")
+//    Optional<Responsaveis> findByCpf(String cpf);
+
+    @Query("SELECT r FROM Responsaveis r " +
+            "JOIN Endereco e ON r.endereco_id.id = e.id " +
+            "JOIN Fotos f ON r.foto_id.id = f.id " +
+            "JOIN Aluno a ON a.responsavel_cpf = r.cpf " +
+//            "JOIN Telefones t ON r.telefones.id = t.id " +
+            "WHERE r.cpf = ?1")
     Optional<Responsaveis> findByCpf(String cpf);
 
     @Modifying
