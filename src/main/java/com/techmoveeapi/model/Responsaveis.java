@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Table(name = "responsaveis")
 public class Responsaveis {
     @Id
-    @Column(length = 11)
+    @Column(length = 14)
     private String cpf;
 
     @Column(nullable = false, length = 100)
@@ -40,16 +40,13 @@ public class Responsaveis {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco_id;
 
+    @ManyToOne
+    @JoinColumn(name = "telefone_id")
+    private Telefones telefone_id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "telefones_id")
-//    private Telefones telefones;
-
-//    @OneToOne(mappedBy = "responsavel_cpf", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private ResponsaveisTelefones responsavelTelefones;
     public Responsaveis() {
     }
-    public Responsaveis(LocalDate dt_nascimento, String email, String cpf, Fotos foto_id, String senha, String nome, Endereco endereco_id/*, Telefones telefones*/) {
+    public Responsaveis(LocalDate dt_nascimento, String email, String cpf, Fotos foto_id, String senha, String nome, Endereco endereco_id, Telefones telefone_id) {
         this.dt_nascimento = dt_nascimento;
         this.email = email;
         this.cpf = cpf;
@@ -57,6 +54,6 @@ public class Responsaveis {
         this.senha = senha;
         this.nome = nome;
         this.endereco_id = endereco_id;
-//        this.telefones = telefones;
+        this.telefone_id = telefone_id;
     }
 }

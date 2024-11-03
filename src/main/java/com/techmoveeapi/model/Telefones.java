@@ -17,15 +17,19 @@ import java.util.List;
 public class Telefones {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column(nullable = false, length = 15, unique = true)
     private String numero;
 
+    @Column(nullable = false, length = 20)
+    private String tipo;
 
     public Telefones() {
     }
 
-    public Telefones(String numero) {
+    public Telefones(Integer id, String numero, String tipo) {
+        this.id = id;
+        this.tipo = tipo;
         this.numero = numero;
     }
 }
