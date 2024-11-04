@@ -13,10 +13,14 @@ import java.util.Optional;
 @Repository
 public interface ResponsaveisRepository extends JpaRepository<Responsaveis, String> {
 
+    @Query("SELECT e FROM Responsaveis e WHERE e.cpf = ?1")
     Optional<Responsaveis> findByCpf(String cpf);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Responsaveis e WHERE e.cpf = ?1")
     void deleteByCpf(String cpf);
+
+    @Query("SELECT e FROM Responsaveis e WHERE e.email = ?1")
+    Optional<Responsaveis> findByEmail(String email);
 }
