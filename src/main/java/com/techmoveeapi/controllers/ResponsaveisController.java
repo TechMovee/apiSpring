@@ -82,6 +82,28 @@ public class ResponsaveisController {
         }
     }
 
+    @GetMapping("/buscarPorEmail/{email}")
+    @Operation(summary = "Buscar um responsavel pelo email", description = "Busca o responsavel pelo email e mostra seus dados ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Responsavel selecionado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responsaveis.class))),
+            @ApiResponse(responseCode = "404", description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responsaveis.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responsaveis.class)))
+    })
+    public ResponseEntity<?> buscarPorEmail(@Parameter(description = "Email do responsavel") @RequestParam String email){
+        Responsaveis responsavel = responsaveisService.getResponsaveisByEmail(email);
+        if (responsavel != null) {
+            return ResponseEntity.ok(responsavel);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Responsavel não encontrado");
+        }
+    }
+
     @PostMapping("/inserirResponsavel")
     @Operation(summary = "Insere um novo responsavel",
             description = "Insere um novo responsavel")

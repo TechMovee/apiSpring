@@ -38,6 +38,11 @@ public class ResponsaveisService {
                 new RuntimeException("Responsável não encontardo"));
     }
 
+    public Responsaveis getResponsaveisByEmail(String email) {
+        return responsavelRepository.findByEmail(email).orElseThrow(() ->
+                new RuntimeException("Responsável não encontardo"));
+    }
+
     public Responsaveis createResponsaveis(Responsaveis responsavel) {
         // Salvar o responsável
         return responsavelRepository.save(responsavel);
