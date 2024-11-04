@@ -40,13 +40,12 @@ public class Responsaveis {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco_id;
 
-    @ManyToOne
-    @JoinColumn(name = "telefone_id")
-    private Telefones telefone_id;
+    @Column(nullable = false, length = 100)
+    private Integer telefone_id;
 
     public Responsaveis() {
     }
-    public Responsaveis(LocalDate dt_nascimento, String email, String cpf, Fotos foto_id, String senha, String nome, Endereco endereco_id, Telefones telefone_id) {
+    public Responsaveis(LocalDate dt_nascimento, String email, String cpf, Fotos foto_id, String senha, String nome, Endereco endereco_id, Integer telefone_id) {
         this.dt_nascimento = dt_nascimento;
         this.email = email;
         this.cpf = cpf;
