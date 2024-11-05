@@ -22,6 +22,19 @@ public class VanService {
         return vanRepository.findByPlaca(placa).orElseThrow(() ->
                 new RuntimeException("Van não encontardo"));
     }
+
+    public List<Van> buscarVanPorOrdemCapacidade(){
+        return this.vanRepository.findAllByOrderByCapacidadeDesc();
+    }
+
+    public List<Van> buscarVanPorMenorMensalidade(){
+        return this.vanRepository.findAllByOrderByMensalidadeAsc();
+    }
+
+    public List<Van> buscarVanAcessivel(){
+        return this.vanRepository.findByAcessibilidadeTrue();
+    }
+
     public List<Van> buscarTodasVans(){
         return this.vanRepository.findAll();
     }
