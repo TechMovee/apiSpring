@@ -55,6 +55,53 @@ public class VanController {
         return ResponseEntity.ok(listaVan);
     }
 
+    @GetMapping("/selecionarCapacidade")
+    @Operation(summary = "Selecionar todas as vans",
+            description = "Selecionar todas as vans")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Todas as vans selecionadas",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Van.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Van.class)))
+    })
+    public ResponseEntity<List<Van>> listarVanCapacidade(){
+        List<Van> listaVan = vanService.buscarVanPorOrdemCapacidade();
+        return ResponseEntity.ok(listaVan);
+    }
+
+    @GetMapping("/selecionarMensalidade")
+    @Operation(summary = "Selecionar todas as vans",
+            description = "Selecionar todas as vans")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Todas as vans selecionadas",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Van.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Van.class)))
+    })
+    public ResponseEntity<List<Van>> listarVanMensalidade(){
+        List<Van> listaVan = vanService.buscarVanPorMenorMensalidade();
+        return ResponseEntity.ok(listaVan);
+    }
+
+    @GetMapping("/selecionarAcessivel")
+    @Operation(summary = "Selecionar todas as vans",
+            description = "Selecionar todas as vans")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Todas as vans selecionadas",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Van.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Van.class)))
+    })
+    public ResponseEntity<List<Van>> listarVanAcessivel(){
+        List<Van> listaVan = vanService.buscarVanAcessivel();
+        return ResponseEntity.ok(listaVan);
+    }
 
     @GetMapping("/buscarPorPlaca/{placa}")
     @Operation(summary = "Buscar uma nova van pela placa", description = "Busca a van pela placa e mostra seus dados ")

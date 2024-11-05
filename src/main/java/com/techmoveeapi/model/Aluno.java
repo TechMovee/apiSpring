@@ -25,15 +25,13 @@ public class Aluno {
     private String pcd;//
     private int id_foto;//
     private String responsavel_cpf;//
-    private String serie;
-    private int endereco_id;//
     @Id
     private String cpf;//
 
 
 
     public Aluno() {}
-    public Aluno(String nome, LocalDate dt_nascimento, Escola escola_id, String turno, String pcd,  int foto, String cpf, String responsavel_cpf, String serie, int endereco_id) {
+    public Aluno(String nome, LocalDate dt_nascimento, Escola escola_id, String turno, String pcd,  int foto, String cpf, String responsavel_cpf) {
         this.nome = nome;
         this.dt_nascimento = dt_nascimento;
         this.escola_id = escola_id;
@@ -42,8 +40,6 @@ public class Aluno {
         this.id_foto = foto;
         this.cpf = cpf;
         this.responsavel_cpf = responsavel_cpf;
-        this.serie = serie;
-        this.endereco_id = endereco_id;
     }
 
 }
