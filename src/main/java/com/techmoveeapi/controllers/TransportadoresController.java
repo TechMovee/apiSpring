@@ -94,7 +94,7 @@ public class TransportadoresController {
     })
     public ResponseEntity<?> inserirTransportadoress(@Valid @RequestBody Transportadores transpotador) {
         transportadoresService.salvarTransportador(transpotador);
-        return ResponseEntity.ok().body("Transportador inserido");
+        return ResponseEntity.ok(transpotador);
     }
 
 
