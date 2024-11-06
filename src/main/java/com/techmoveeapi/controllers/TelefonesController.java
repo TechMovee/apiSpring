@@ -93,7 +93,7 @@ public class TelefonesController {
     })
     public ResponseEntity<?> inserirTelefone(@Valid @RequestBody Telefones telefone) {
         telefonesService.salvarTelefone(telefone);
-        return ResponseEntity.ok().body("Telefone inserido");
+        return ResponseEntity.ok(telefone);
     }
 
     @DeleteMapping("/excluir/{id}")
