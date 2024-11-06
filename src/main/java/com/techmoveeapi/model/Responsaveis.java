@@ -32,20 +32,18 @@ public class Responsaveis {
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @ManyToOne
-    @JoinColumn(name = "foto_id")
-    private Fotos foto_id;
+    @Column(nullable = false, length = 100)
+    private Integer foto_id;
 
-    @ManyToOne
-    @JoinColumn(name = "endereco_id")
-    private Endereco endereco_id;
+    @Column(nullable = false, length = 100)
+    private Integer endereco_id;
 
     @Column(nullable = false, length = 100)
     private Integer telefone_id;
 
     public Responsaveis() {
     }
-    public Responsaveis(LocalDate dt_nascimento, String email, String cpf, Fotos foto_id, String senha, String nome, Endereco endereco_id, Integer telefone_id) {
+    public Responsaveis(LocalDate dt_nascimento, String email, String cpf, Integer foto_id, String senha, String nome, Integer endereco_id, Integer telefone_id) {
         this.dt_nascimento = dt_nascimento;
         this.email = email;
         this.cpf = cpf;
