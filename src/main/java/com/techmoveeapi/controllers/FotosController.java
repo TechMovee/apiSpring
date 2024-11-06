@@ -95,7 +95,7 @@ public class FotosController {
     })
     public ResponseEntity<?> inserirFotos(@Valid @RequestBody Fotos foto) {
         fotosService.salvarFotos(foto);
-        return ResponseEntity.ok().body("Foto inserida");
+        return ResponseEntity.ok(foto);
     }
 
     @DeleteMapping("/excluir/{id}")
