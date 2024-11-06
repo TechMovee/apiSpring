@@ -161,27 +161,20 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public ResponseEntity<String> atualizarResponsavel(@Parameter(description = "Id do resposavel")    @Valid @PathVariable String cpf, @RequestBody Responsaveis resposavelAtualizado) {
-//        Responsaveis responsavelExistente = responsaveisService.buscarResponsavelPorCpf(cpf);
-//        if (responsavelExistente != null) {
-//            Responsaveis responsavel = responsavelExistente;
-//            responsavel.setDt_nascimento(resposavelAtualizado.getDt_nascimento());
-//            responsavel.setCpf(resposavelAtualizado.getCpf());
-//            responsavel.setFoto_id(resposavelAtualizado.getFoto_id());
-//            responsavel.setSenha(resposavelAtualizado.getSenha());
-//            responsavel.setNome(resposavelAtualizado.getNome());
-//            responsavel.setEndereco_id(resposavelAtualizado.getEndereco_id());
-//
-//
-//            responsaveisService.salvarResponsavel(responsavel);
-//            return ResponseEntity.ok("Responsavel atualizado com sucesso");
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
+        Responsaveis responsavelExistente = responsaveisService.getResponsaveisByCpf(cpf);
+        if (responsavelExistente != null) {
+            Responsaveis responsavel = responsavelExistente;
+            responsavel.setDt_nascimento(resposavelAtualizado.getDt_nascimento());
+            responsavel.setCpf(resposavelAtualizado.getCpf());
+            responsavel.setFoto_id(resposavelAtualizado.getFoto_id());
+            responsavel.setSenha(resposavelAtualizado.getSenha());
+            responsavel.setNome(resposavelAtualizado.getNome());
+            responsavel.setEndereco_id(resposavelAtualizado.getEndereco_id());
 
-        try {
-            Responsaveis responsavel = responsaveisService.updateResponsaveis(cpf, resposavelAtualizado);
-            return ResponseEntity.ok().body("deu bom");
-        } catch (RuntimeException e) {
+
+            responsaveisService.createResponsaveis(responsavel);
+            return ResponseEntity.ok("Responsavel atualizado com sucesso");
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
@@ -200,60 +193,54 @@ public class ResponsaveisController {
                             schema = @Schema(implementation = Responsaveis.class)))
     })
     public  ResponseEntity<?> atualizarResponsaveisParcial(@Parameter(description = "Cpf do responsavel") @PathVariable String cpf, @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Objeto com as novas informações",content = @Content(schema = @Schema(type = "object",example = "{\"dt_nascimento\": \"DT_NASCIMENTO\","+"\"sexo\": \"SEXO\","+"\"cpf\": \"CPF\","+"\"foto\": \"FOTO\","+"\"senha\": \"SENHA\","+"\"nome\": \"NOME\","+"\"endereco_id\": \"ENDERECO_ID\"}")) ) @RequestBody Map<String, Object> updates) {
-//        try{
-//            Responsaveis responsavel = responsaveisService.buscarResponsavelPorCpf(cpf);
-//            if (updates.containsKey("dt_nascimento")){
-//                responsavel.setDt_nascimento((LocalDate) updates.get("dt_nascimento"));
-//            }
-//            if (updates.containsKey("cpf")){
-//                responsavel.setCpf((String) updates.get("cpf"));
-//            }
-//            if (updates.containsKey("foto")){
-//                responsavel.setFoto_id((int) updates.get("foto"));
-//            }
-//            if (updates.containsKey("senha")){
-//                responsavel.setSenha((String) updates.get("senha"));
-//            }
-//            if (updates.containsKey("nome")){
-//                responsavel.setNome((String) updates.get("nome"));
-//            }
-//            if (updates.containsKey("endereco_id")){
-//                responsavel.setEndereco_id((Integer) updates.get("endereco_id"));
-//            }
-//            //validar
-//            DataBinder binder = new DataBinder(responsavel);
-//            binder.setValidator(validador);
-//            binder.validate();
-//            BindingResult result = binder.getBindingResult();
-//            if (result.hasErrors()){
-//                Map erros = handlerValidator(result);
-//                return ResponseEntity.badRequest().body(erros);
-//            }
-//            Responsaveis produtosalvo = responsaveisService.salvarResponsavel(responsavel);
-//            return ResponseEntity.ok("Responsavel atualizado parcialmente com sucesso");
-//        }catch (RuntimeException re){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).
-//                    body("Responsavel com CPF " + cpf + " não encontrado");
-//        }
-        try {
-            Responsaveis responsavel = responsaveisService.partialUpdateResponsavel(cpf, updates);
-            return ResponseEntity.ok(responsavel);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+        try{
+            Responsaveis responsavel = responsaveisService.getResponsaveisByCpf(cpf);
+            if (updates.containsKey("dt_nascimento")){
+                responsavel.setDt_nascimento((LocalDate) updates.get("dt_nascimento"));
+            }
+            if (updates.containsKey("cpf")){
+                responsavel.setCpf((String) updates.get("cpf"));
+            }
+            if (updates.containsKey("foto")){
+                responsavel.setFoto_id((int) updates.get("foto"));
+            }
+            if (updates.containsKey("senha")){
+                responsavel.setSenha((String) updates.get("senha"));
+            }
+            if (updates.containsKey("nome")){
+                responsavel.setNome((String) updates.get("nome"));
+            }
+            if (updates.containsKey("endereco_id")){
+                responsavel.setEndereco_id((Integer) updates.get("endereco_id"));
+            }
+            //validar
+            DataBinder binder = new DataBinder(responsavel);
+            binder.setValidator(validador);
+            binder.validate();
+            BindingResult result = binder.getBindingResult();
+            if (result.hasErrors()){
+                Map erros = handlerValidator(result);
+                return ResponseEntity.badRequest().body(erros);
+            }
+            Responsaveis produtosalvo = responsaveisService.createResponsaveis(responsavel);
+            return ResponseEntity.ok("Responsavel atualizado parcialmente com sucesso");
+        }catch (RuntimeException re){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                    body("Responsavel com CPF " + cpf + " não encontrado");
         }
     }
 
 
 
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ResponseBody
-//    public Map<String, String> handlerValidator(BindingResult result){
-//        Map<String, String> errors = new HashMap<>();
-//        for (FieldError error : result.getFieldErrors()){
-//            errors.put(error.getField(), error.getDefaultMessage());
-//        }
-//        return errors;
-//    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Map<String, String> handlerValidator(BindingResult result){
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : result.getFieldErrors()){
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+        return errors;
+    }
 }
