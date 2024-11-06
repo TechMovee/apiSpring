@@ -90,10 +90,10 @@ public class ResponsaveisService {
                     responsavel.setSenha((String) value);
                     break;
                 case "foto":
-                    responsavel.setFoto_id((Fotos) value);  // Supondo que seja um objeto Foto
+                    responsavel.setFoto_id((Integer) value);  // Supondo que seja um objeto Foto
                     break;
                 case "endereco":
-                    responsavel.setEndereco_id((Endereco) value);  // Supondo que seja um objeto Endereco
+                    responsavel.setEndereco_id((Integer) value);  // Supondo que seja um objeto Endereco
                     break;
                 // Adicione outros campos que podem ser atualizados parcialmente
             }
