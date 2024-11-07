@@ -1,7 +1,3 @@
-# Etapa 1: Construção
-FROM maven:3.8.3-openjdk-17 AS build
-
-# Define o diretório de trabalho
 WORKDIR /app
 
 # Copia o arquivo pom.xml e as dependências necessárias para o diretório de trabalho
