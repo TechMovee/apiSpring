@@ -23,7 +23,7 @@ public class Aluno {
     private Escola escola_id;//
     private String turno;
     private String pcd;//
-    private int id_foto;//
+    private Integer id_foto;//
     private String responsavel_cpf;//
     @Id
     private String cpf;//
@@ -31,7 +31,7 @@ public class Aluno {
 
 
     public Aluno() {}
-    public Aluno(String nome, LocalDate dt_nascimento, Escola escola_id, String turno, String pcd,  int foto, String cpf, String responsavel_cpf) {
+    public Aluno(String nome, LocalDate dt_nascimento, Escola escola_id, String turno, String pcd,  Integer foto, String cpf, String responsavel_cpf) {
         this.nome = nome;
         this.dt_nascimento = dt_nascimento;
         this.escola_id = escola_id;

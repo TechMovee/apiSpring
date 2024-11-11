@@ -26,6 +26,11 @@ public class AlunoService {
                 new RuntimeException("Aluno não encontardo"));
     }
 
+    public Aluno buscarAlunoPorRespCpf(String cpf){
+        return alunoRepository.findByResponsavel_cpf(cpf).orElseThrow(() ->
+                new RuntimeException("Aluno não encontardo"));
+    }
+
     public List<Aluno> buscarTodosAlunos(){
         return this.alunoRepository.findAll();
     }
