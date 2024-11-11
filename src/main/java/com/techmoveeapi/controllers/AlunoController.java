@@ -206,7 +206,7 @@ public class AlunoController {
                 aluno.setDt_nascimento((LocalDate) updates.get("idade"));
             }
             if (updates.containsKey("escola")){
-                aluno.setEscola_id((Escola) updates.get("escola"));
+                aluno.setEscola_id((Integer) updates.get("escola"));
             }
             if (updates.containsKey("turno")){
                 aluno.setTurno((String) updates.get("turno"));

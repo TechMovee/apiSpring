@@ -18,9 +18,8 @@ public class Aluno {
     @Min(value = 0 , message = "A quantidade deve ser pelo menos 0")
     private LocalDate dt_nascimento;//
 
-    @ManyToOne
-    @JoinColumn(name = "escola_id")
-    private Escola escola_id;//
+
+    private Integer escola_id;//
     private String turno;
     private String pcd;//
     private Integer id_foto;//
@@ -31,7 +30,7 @@ public class Aluno {
 
 
     public Aluno() {}
-    public Aluno(String nome, LocalDate dt_nascimento, Escola escola_id, String turno, String pcd,  Integer foto, String cpf, String responsavel_cpf) {
+    public Aluno(String nome, LocalDate dt_nascimento, Integer escola_id, String turno, String pcd,  Integer foto, String cpf, String responsavel_cpf) {
         this.nome = nome;
         this.dt_nascimento = dt_nascimento;
         this.escola_id = escola_id;
