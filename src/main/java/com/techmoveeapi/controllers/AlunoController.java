@@ -81,6 +81,31 @@ public class AlunoController {
         }
     }
 
+
+
+    @GetMapping("/buscarPorResponsavelCpf/{cpf}")
+    @Operation(summary = "Buscar um novo aluno pelo nome", description = "Busca o aluno pelo cpf e mostra seus dados ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aluno selecionado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "404", description = "Requisição inválida",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aluno.class)))
+    })
+    public ResponseEntity<?> buscarPorResponsavelCpf(@Parameter(description = "Cpf do responsavel do aluno") @RequestParam String cpf){
+        Aluno aluno = alunoService.buscarAlunoPorRespCpf(cpf);
+        if (aluno != null) {
+            return ResponseEntity.ok(aluno);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+        }
+    }
+
+
     @PostMapping("/inserirAluno")
     @Operation(summary = "Insere um novo aluno",
             description = "Insere um novo aluno")
@@ -181,7 +206,7 @@ public class AlunoController {
                 aluno.setDt_nascimento((LocalDate) updates.get("idade"));
             }
             if (updates.containsKey("escola")){
-                aluno.setEscola_id((Escola) updates.get("escola"));
+                aluno.setEscola_id((Integer) updates.get("escola"));
             }
             if (updates.containsKey("turno")){
                 aluno.setTurno((String) updates.get("turno"));
